@@ -32,11 +32,14 @@ async def tor_relay(ctx, nickname):
         if i['nickname'].casefold() == nickname.casefold() or i['fingerprint'] == nickname.upper():
             if i['running'] == False:
                 status = ":red_circle:"
+                color = 0xe74c3c
             elif 'overload_general_timestamp' in i:
                 status = ":yellow_circle:"
+                color = 0xf1c40f
             else:
                 status = ":green_circle:"
-            embed = discord.Embed(title=f"{status} {i['nickname']}")
+                color = 0x2ecc71
+            embed = discord.Embed(title=f"{status} {i['nickname']}", color=color)
             embed.add_field(name='Uptime', value=f"{days_between(i['last_restarted'], datetime.now())}", inline=False)
             embed.add_field(name='Country', value=f":flag_{i['country']}: {i['country_name']}", inline=False)
             embed.add_field(name='Flags', value=i['flags'], inline=False)
