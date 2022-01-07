@@ -27,9 +27,21 @@ async def tor_relay(ctx, nickname):
     response = r.json()
     for i in response['relays']:
         if i['nickname'] == nickname:
-            embed = discord.Embed(title=i['nickname'])
+            if i['running'] == False:
+                status = ":red_circle:"
+            elif 'overload_general_timestamp' in i:
+                status = ":yellow_circle:"
+            else:
+                status = ":green_circle:"
+            embed = discord.Embed(title=f"{status} {i['nickname']}")
             embed.add_field(name='Uptime', value=f"{days_between(i['last_restarted'], datetime.now())} days", inline=False)
             embed.add_field(name='Country', value=f":flag_{i['country']}:", inline=False)
             embed.add_field(name='Flags', value=i['flags'], inline=False)
+            embed.add_field(name='Version', value=i['version'], inline=False)
+            embed.add_field(name='Fingerprint', value=i['fingerprint'], inline=False)
+            if 'contact' in i:
+                embed.add_field(name='Contact Info', value=i['contact'], inline=False)
+            else:
+                embed.add_field(name='Contact Info', value="none", inline=False)
             await ctx.send(embed=embed)
 bot.run(token)
