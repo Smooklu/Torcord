@@ -26,7 +26,7 @@ async def tor_relay(ctx, nickname):
     r = requests.get('https://onionoo.torproject.org/details')
     response = r.json()
     for i in response['relays']:
-        if i['nickname'] == nickname:
+        if i['nickname'].casefold() == nickname.casefold() or i['fingerprint'] == nickname.upper():
             if i['running'] == False:
                 status = ":red_circle:"
             elif 'overload_general_timestamp' in i:
