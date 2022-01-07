@@ -12,7 +12,7 @@ A discord bot for displaying Tor Relay information.
 5. Start the bot by doing `pipenv run python test.py`
 
 ## Commands
-`$tor_relay relay_nickname/fingerprint` - Spits out basic information about a relay.
+`$tor_relay relay_nickname/fingerprint/ip` - Displays information about a Tor Relay.
 
 ## Screenshots
 

@@ -3,6 +3,7 @@ import json
 import discord
 from discord.ext import commands
 from datetime import datetime
+import re
 
 with open("token.txt") as f:
     lines = f.read()
@@ -22,7 +23,7 @@ async def tor_relay(ctx, nickname):
     r = requests.get('https://onionoo.torproject.org/details')
     response = r.json()
     for i in response['relays']:
-        if i['nickname'].casefold() == nickname.casefold() or i['fingerprint'] == nickname.upper():
+        if i['nickname'].casefold() == nickname.casefold() or i['fingerprint'] == nickname.upper() or i['or_addresses'][0].split(':')[0] == nickname:
             if i['running'] == False:
                 status = ":red_circle:"
                 color = 0xe74c3c
@@ -33,11 +34,13 @@ async def tor_relay(ctx, nickname):
                 status = ":green_circle:"
                 color = 0x2ecc71
             embed = discord.Embed(title=f"{status} {i['nickname']}", color=color)
+            embed.add_field(name="First Seen", value=i['first_seen'][:10])
             embed.add_field(name='Uptime', value=f"{days_between(i['last_restarted'], datetime.now())}", inline=False)
             embed.add_field(name='Country', value=f":flag_{i['country']}: {i['country_name']}", inline=False)
-            embed.add_field(name='Flags', value=i['flags'], inline=False)
+            embed.add_field(name='Flags', value=re.sub("\W+", ' ', str(i['flags'])), inline=False)
             embed.add_field(name='Version', value=i['version'], inline=False)
             embed.add_field(name='Fingerprint', value=i['fingerprint'], inline=False)
+            embed.add_field(name='OR Address', value=i['or_addresses'][0], inline=False)
             if 'contact' in i:
                 embed.add_field(name='Contact Info', value=i['contact'], inline=False)
             else:
