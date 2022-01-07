@@ -13,3 +13,6 @@ A discord bot for displaying Tor Relay information.
 
 ## Commands
 `$tor_relay relay_nickname` - Spits out basic information about a relay.
+
+## Screenshots
+
