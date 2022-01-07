@@ -19,7 +19,10 @@ flag_emojis = {
 
 def days_between(d1, d2):
     d1 = datetime.strptime(d1[:10], "%Y-%m-%d")
-    return abs((d2 - d1).days)
+    if abs((d2 - d1).days) > 1 or abs((d2 - d1).days) == 0:
+        return f"{abs((d2 - d1).days)} days"
+    else:
+        return f"{abs((d2 - d1).days)} day"
 
 @bot.command()
 async def tor_relay(ctx, nickname):
@@ -34,7 +37,7 @@ async def tor_relay(ctx, nickname):
             else:
                 status = ":green_circle:"
             embed = discord.Embed(title=f"{status} {i['nickname']}")
-            embed.add_field(name='Uptime', value=f"{days_between(i['last_restarted'], datetime.now())} days", inline=False)
+            embed.add_field(name='Uptime', value=f"{days_between(i['last_restarted'], datetime.now())}", inline=False)
             embed.add_field(name='Country', value=f":flag_{i['country']}:", inline=False)
             embed.add_field(name='Flags', value=i['flags'], inline=False)
             embed.add_field(name='Version', value=i['version'], inline=False)
