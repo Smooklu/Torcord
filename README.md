@@ -16,5 +16,5 @@ A discord bot for displaying Tor Relay information.
 
 ## Screenshots
 
-![torcord](https://user-images.githubusercontent.com/37220586/148503007-4460ee2b-8d1c-4b2f-96db-628bf39134a0.png)
+![torcord](https://user-images.githubusercontent.com/37220586/148591548-fd4f8ce5-26f4-45e8-9c57-ab9325bc3587.png)
 
