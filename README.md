@@ -1,2 +1,2 @@
 # Torcord
-A discord bot for displaying tor relay information.
+A discord bot for displaying Tor Relay Information.
