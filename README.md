@@ -4,4 +4,12 @@
 
 A discord bot for displaying Tor Relay information.
 
-Paste your token into token_example.txt and remove _example from the file name.
+## Installation and Setup
+1. Clone this repository
+2. Install pipenv by doing `pip install pipenv`
+3. Install requirements by doing `pipenv install`
+4. Paste your token into token_example.txt and remove _example from the file name.
+5. Start the bot by doing `pipenv run python test.py`
+
+## Commands
+`$tor_relay relay_nickname` - Spits out basic information about a relay.
