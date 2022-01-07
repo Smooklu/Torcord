@@ -9,13 +9,6 @@ with open("token.txt") as f:
     token = lines.split('\n', 1)[0]
 
 bot = commands.Bot(command_prefix='$')
-flag_emojis = {
-    "Fast": ":rocket:",
-    "Guard": ":shield:",
-    "V2Dir" : ":file_folder:",
-    "Valid": ":white_check_mark:",
-    "Running": ":arrow_forward:",
-}
 
 def days_between(d1, d2):
     d1 = datetime.strptime(d1[:10], "%Y-%m-%d")
@@ -49,5 +42,6 @@ async def tor_relay(ctx, nickname):
                 embed.add_field(name='Contact Info', value=i['contact'], inline=False)
             else:
                 embed.add_field(name='Contact Info', value="none", inline=False)
+            embed.add_field(name='Consensus Weight', value=i['consensus_weight'], inline=False)
             await ctx.send(embed=embed)
 bot.run(token)
