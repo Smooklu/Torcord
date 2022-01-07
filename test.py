@@ -38,7 +38,7 @@ async def tor_relay(ctx, nickname):
                 status = ":green_circle:"
             embed = discord.Embed(title=f"{status} {i['nickname']}")
             embed.add_field(name='Uptime', value=f"{days_between(i['last_restarted'], datetime.now())}", inline=False)
-            embed.add_field(name='Country', value=f":flag_{i['country']}:", inline=False)
+            embed.add_field(name='Country', value=f":flag_{i['country']}: {i['country_name']}", inline=False)
             embed.add_field(name='Flags', value=i['flags'], inline=False)
             embed.add_field(name='Version', value=i['version'], inline=False)
             embed.add_field(name='Fingerprint', value=i['fingerprint'], inline=False)
