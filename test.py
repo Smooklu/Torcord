@@ -38,7 +38,7 @@ async def tor_relay(ctx, nickname):
                 color = 0x2ecc71
                 description = "This relay is running."
             embed = discord.Embed(title=f"{status} {i['nickname']}", description=description, color=color)
-            embed.add_field(name="First Seen", value=i['first_seen'][:10])
+            embed.add_field(name="First Seen", value=f"{i['first_seen'][:10]} ({days_between(i['first_seen'], datetime.now())} ago) ", inline=False)
             embed.add_field(name='Uptime', value=f"{days_between(i['last_restarted'], datetime.now())}", inline=False)
             embed.add_field(name='Country', value=f":flag_{i['country']}: {i['country_name']}", inline=False)
             embed.add_field(name='Flags', value=re.sub("\W+", ' ', str(i['flags'])), inline=False)
