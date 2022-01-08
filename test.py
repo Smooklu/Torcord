@@ -32,7 +32,7 @@ async def tor_relay(ctx, nickname):
             elif 'overload_general_timestamp' in i:
                 status = ":yellow_circle:"
                 color = 0xf1c40f
-                description = f"This relay is overloaded."
+                description = "This relay is overloaded."
             else:
                 status = ":green_circle:"
                 color = 0x2ecc71
