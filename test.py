@@ -20,6 +20,7 @@ def days_between(d1, d2):
 
 @bot.command()
 async def tor_relay(ctx, nickname):
+    await ctx.channel.trigger_typing()
     r = requests.get('https://onionoo.torproject.org/details')
     response = r.json()
     for i in response['relays']:
@@ -44,7 +45,11 @@ async def tor_relay(ctx, nickname):
             if 'contact' in i:
                 embed.add_field(name='Contact Info', value=i['contact'], inline=False)
             else:
-                embed.add_field(name='Contact Info', value="none", inline=False)
+                embed.add_field(name='Contact Info', value="none", inline=False)    
             embed.add_field(name='Consensus Weight', value=i['consensus_weight'], inline=False)
             await ctx.send(embed=embed)
+            break
+    else:
+        embed = discord.Embed(title="Error", description="No relay found!", color=0xe74c3c)
+        await ctx.send(embed=embed)
 bot.run(token)
