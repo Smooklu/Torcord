@@ -34,8 +34,12 @@ def unit_plural(value, unit):
 def days_between(d1, d2):
     d1 = datetime.strptime(d1, "%Y-%m-%d %H:%M:%S")
     td = abs(d2 - d1)
-    if td.days==0:
-        return unit_plural(td.seconds//3600, "hour") + " " + unit_plural(td.seconds%60, "minute")
+    if td.days == 0:
+        return (
+            unit_plural(td.seconds // 3600, "hour")
+            + " "
+            + unit_plural(td.seconds % 60, "minute")
+        )
     ret = ""
     if td.days >= 365:
         ret += unit_plural(td.days // 365, "year") + " "
