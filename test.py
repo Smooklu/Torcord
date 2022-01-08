@@ -28,13 +28,16 @@ async def tor_relay(ctx, nickname):
             if i['running'] == False:
                 status = ":red_circle:"
                 color = 0xe74c3c
+                description = "This relay is offline."
             elif 'overload_general_timestamp' in i:
                 status = ":yellow_circle:"
                 color = 0xf1c40f
+                description = f"This relay is overloaded."
             else:
                 status = ":green_circle:"
                 color = 0x2ecc71
-            embed = discord.Embed(title=f"{status} {i['nickname']}", color=color)
+                description = "This relay is running."
+            embed = discord.Embed(title=f"{status} {i['nickname']}", description=description, color=color)
             embed.add_field(name="First Seen", value=i['first_seen'][:10])
             embed.add_field(name='Uptime', value=f"{days_between(i['last_restarted'], datetime.now())}", inline=False)
             embed.add_field(name='Country', value=f":flag_{i['country']}: {i['country_name']}", inline=False)
