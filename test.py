@@ -58,59 +58,58 @@ def change_flags(list):
 @bot.command()
 async def tor_relay(ctx, nickname):
     await ctx.channel.trigger_typing()
-    r = requests.get("https://onionoo.torproject.org/details")
+    r = requests.get("https://onionoo.torproject.org/details?search=" + nickname)
     response = r.json()
-    for i in response["relays"]:
-        if (
-            i["nickname"].casefold() == nickname.casefold()
-            or i["fingerprint"] == nickname.upper()
-            or i["or_addresses"][0].split(":")[0] == nickname
-        ):
-            if i["running"] == False:
-                status = ":red_circle:"
-                color = 0xE74C3C
-                description = "This relay is offline."
-            elif "overload_general_timestamp" in i:
-                status = ":yellow_circle:"
-                color = 0xF1C40F
-                description = "This relay is overloaded."
-            else:
-                status = ":green_circle:"
-                color = 0x2ECC71
-                description = "This relay is running."
-            embed = discord.Embed(
-                title=f"{status} {i['nickname']}", description=description, color=color
-            )
-            embed.add_field(
-                name="First Seen",
-                value=f"{i['first_seen'][:10]} ({days_between(i['first_seen'], datetime.now())} ago) ",
-                inline=False,
-            )
-            embed.add_field(
-                name="Uptime",
-                value=f"{days_between(i['last_restarted'], datetime.now())}",
-                inline=False,
-            )
-            embed.add_field(
-                name="Country",
-                value=f":flag_{i['country']}: {i['country_name']}",
-                inline=False,
-            )
-            embed.add_field(
-                name="Flags", value=" ".join(change_flags(i["flags"])), inline=False
-            )
-            embed.add_field(name="Version", value=i["version"], inline=False)
-            embed.add_field(name="Fingerprint", value=i["fingerprint"], inline=False)
-            embed.add_field(name="OR Address", value=i["or_addresses"][0], inline=False)
-            if "contact" in i:
-                embed.add_field(name="Contact Info", value=i["contact"], inline=False)
-            else:
-                embed.add_field(name="Contact Info", value="none", inline=False)
-            embed.add_field(
-                name="Consensus Weight", value=i["consensus_weight"], inline=False
-            )
-            await ctx.send(embed=embed)
-            break
+    i = response["relays"][0]
+    if (
+        i["nickname"].casefold() == nickname.casefold()
+        or i["fingerprint"] == nickname.upper()
+        or i["or_addresses"][0].split(":")[0] == nickname
+    ):
+        if i["running"] == False:
+            status = ":red_circle:"
+            color = 0xE74C3C
+            description = "This relay is offline."
+        elif "overload_general_timestamp" in i:
+            status = ":yellow_circle:"
+            color = 0xF1C40F
+            description = "This relay is overloaded."
+        else:
+            status = ":green_circle:"
+            color = 0x2ECC71
+            description = "This relay is running."
+        embed = discord.Embed(
+            title=f"{status} {i['nickname']}", description=description, color=color
+        )
+        embed.add_field(
+            name="First Seen",
+            value=f"{i['first_seen'][:10]} ({days_between(i['first_seen'], datetime.now())} ago) ",
+            inline=False,
+        )
+        embed.add_field(
+            name="Uptime",
+            value=f"{days_between(i['last_restarted'], datetime.now())}",
+            inline=False,
+        )
+        embed.add_field(
+            name="Country",
+            value=f":flag_{i['country']}: {i['country_name']}",
+            inline=False,
+        )
+        embed.add_field(
+            name="Flags", value=" ".join(change_flags(i["flags"])), inline=False
+        )
+        embed.add_field(name="Version", value=i["version"], inline=False)
+        embed.add_field(name="Fingerprint", value=i["fingerprint"], inline=False)
+        embed.add_field(name="OR Address", value=i["or_addresses"][0], inline=False)
+        if "contact" in i:
+            embed.add_field(name="Contact Info", value=i["contact"], inline=False)
+        else:
+            embed.add_field(name="Contact Info", value="none", inline=False)
+        embed.add_field(
+            name="Consensus Weight", value=i["consensus_weight"], inline=False
+        )
+        await ctx.send(embed=embed)
     else:
         embed = discord.Embed(
             title="Error", description="No relay found!", color=0xE74C3C
