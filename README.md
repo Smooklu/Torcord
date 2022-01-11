@@ -2,7 +2,7 @@
 
 # Torcord
 
-A discord bot for displaying Tor Relay information.
+A discord bot for displaying Tor Relay/Bridge information.
 
 ## Installation and Setup
 1. Clone this repository by doing `git clone https://github.com/Smooklu/Torcord.git`
