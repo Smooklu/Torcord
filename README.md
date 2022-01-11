@@ -14,7 +14,7 @@ A discord bot for displaying Tor Relay information.
 ## Commands
 `$tor_relay relay_nickname/fingerprint/ip` - Displays information about a Tor Relay.
 
-`$tor_bridge bridge_nickname/fingerprint/ip` - Displays information about a Tor Bridge.
+`$tor_bridge bridge_nickname/fingerprint` - Displays information about a Tor Bridge.
 
 ## Screenshots
 

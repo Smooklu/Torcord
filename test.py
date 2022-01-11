@@ -127,7 +127,6 @@ async def tor_bridge(ctx, nickname):
     if (
         i["nickname"].casefold() == nickname.casefold()
         or i["hashed_fingerprint"] == nickname.upper()
-        or i["or_addresses"][0].split(":")[0] == nickname
     ):
         if i["running"] == False:
             status = ":red_circle:"
