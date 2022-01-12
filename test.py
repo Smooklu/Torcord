@@ -172,7 +172,7 @@ async def tor_bridge(ctx, nickname):
         embed.add_field(name="Fingerprint", value=i["hashed_fingerprint"], inline=False)
         embed.add_field(name="OR Address", value=" ".join(iplist), inline=False)
         embed.add_field(name="Transport Protocols", value=" ".join(i["transports"]), inline=False)
-        embed.add_field(name="Bridge Distrubition", value=i["bridgedb_distributor"], inline=False)
+        embed.add_field(name="Bridge Distribution", value=i["bridgedb_distributor"], inline=False)
         embed.add_field(
             name="Metrics", value=f"https://metrics.torproject.org/rs.html#details/{i['hashed_fingerprint']}", inline=False
         )
